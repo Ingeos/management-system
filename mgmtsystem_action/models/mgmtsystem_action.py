@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from openerp import fields, models, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime, timedelta
 
 
-class MgmtSystemAction(models.Model):
+class MgmtsystemAction(models.Model):
     """Model class that manage action."""
 
     _name = "mgmtsystem.action"
@@ -52,8 +52,7 @@ class MgmtSystemAction(models.Model):
     active = fields.Boolean('Active', default=True)
     date_deadline = fields.Date('Deadline')
 
-    create_date = fields.Datetime('Create Date', readonly=True,
-                                  default=fields.datetime.now())
+    create_date = fields.Datetime('Create Date', readonly=True)
     cancel_date = fields.Datetime('Cancel Date', readonly=True)
     opening_date = fields.Datetime('Opening Date', readonly=True)
     date_closed = fields.Datetime('Closed Date', readonly=True)
@@ -85,24 +84,14 @@ class MgmtSystemAction(models.Model):
     stage_id = fields.Many2one(
         'mgmtsystem.action.stage',
         'Stage',
-        default=_default_stage)
+        track_visibility='onchange', index=True,
+        copy=False,
+        default=_default_stage, group_expand='_stage_groups')
 
     @api.model
-    def _stage_groups(self, present_ids, domain, **kwargs):
-        """This method is used by Kanban view to show empty stages."""
-        # perform search
-        # We search here only stage ids
-        stage_ids = self.env['mgmtsystem.action.stage']._search([])
-        # We search here stages objects
-        result = self.env['mgmtsystem.action.stage'].search([]).name_get()
-        # restore order of the search
-        result.sort(lambda x, y: cmp(
-            stage_ids.index(x[0]), stage_ids.index(y[0])))
-        return result, None
-
-    _group_by_full = {
-        'stage_id': _stage_groups
-    }
+    def _stage_groups(self, stages, domain, order):
+        stage_ids = self.env['mgmtsystem.action.stage'].search([])
+        return stage_ids
 
     @api.model
     def _get_stage_new(self):
@@ -136,7 +125,7 @@ class MgmtSystemAction(models.Model):
         """Creation of Action."""
         Sequence = self.env['ir.sequence']
         vals['reference'] = Sequence.next_by_code('mgmtsystem.action')
-        action = super(MgmtSystemAction, self).create(vals)
+        action = super(MgmtsystemAction, self).create(vals)
         self.send_mail_for_action(action)
         return action
 
@@ -184,14 +173,13 @@ class MgmtSystemAction(models.Model):
                     body=' %s ' % (_('Action cancelled on ') +
                                    fields.Datetime.now())
                 )
-        return super(MgmtSystemAction, self).write(vals)
+        return super(MgmtsystemAction, self).write(vals)
 
+    @api.model
     def send_mail_for_action(self, action, force_send=True):
-        """Set a document state as draft and notified the reviewers."""
         template = self.env.ref(
             'mgmtsystem_action.email_template_new_action_reminder')
-        for action in self:
-            template.send_mail(action.id, force_send=force_send)
+        template.send_mail(action.id, force_send=force_send)
         return True
 
     def get_action_url(self):
@@ -219,5 +207,5 @@ class MgmtSystemAction(models.Model):
         template = self.env.ref(
             'mgmtsystem_action.action_email_template_reminder_action')
         for action in action_ids:
-            template.send_mail(action.id, force_send=True)
+            template.send_mail(action.id)
         return True
