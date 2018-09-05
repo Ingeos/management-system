@@ -19,6 +19,7 @@ These presentation may help with an overviews of the modules:
 * [Overview presentation](http://www.slideshare.net/max3903/openerp-management-system-modules) (2012) by Savoir-Faire Linux
 
 [//]: # (addons)
+
 Available addons
 ----------------
 addon | version | summary
@@ -31,7 +32,7 @@ addon | version | summary
 [document_page_work_instructions](document_page_work_instructions/) | 8.0.1.0.0 | Document Management - Wiki - Work Instructions
 [information_security_manual](information_security_manual/) | 8.0.1.0.0 | Information Security Management System Manual
 [mgmtsystem](mgmtsystem/) | 8.0.1.0.0 | Management System
-[mgmtsystem_action](mgmtsystem_action/) | 8.0.1.2.2 | Management System - Action
+[mgmtsystem_action](mgmtsystem_action/) | 8.0.1.2.3 | Management System - Action
 [mgmtsystem_audit](mgmtsystem_audit/) | 8.0.1.2.0 | Management System - Audit
 [mgmtsystem_claim](mgmtsystem_claim/) | 8.0.1.1.0 | Management System - Claim
 [mgmtsystem_environment](mgmtsystem_environment/) | 8.0.1.0.0 | Environment Management System
@@ -46,6 +47,7 @@ addon | version | summary
 [mgmtsystem_quality](mgmtsystem_quality/) | 8.0.1.0.0 | Quality Management System
 [mgmtsystem_review](mgmtsystem_review/) | 8.0.1.0.0 | Management System - Review
 [mgmtsystem_survey](mgmtsystem_survey/) | 8.0.1.0.0 | Management System - Survey
+
 
 Unported addons
 ---------------

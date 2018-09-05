@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* document_page_work_instructions
+# 	* document_page_work_instructions
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2015-07-27 22:27+0000\n"
 "Last-Translator: Glen Sojo <glen.sojo@clearcorp.co.cr>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -25,4 +26,3 @@ msgstr "Instrucciones De Trabajo"
 #: model:ir.actions.act_window,help:document_page_work_instructions.work_instructions_action
 msgid "Work instructions of your management system."
 msgstr "Instrucciones de trabajo de su sistema de gestión."
-
